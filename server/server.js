@@ -5,11 +5,14 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
 const path = require('path');
+const dns = require('dns');
+dns.setServers(['8.8.8.8']); // Fix for SRV resolution issues
 require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 const authRoutes = require('./routes/authRoutes');
 const articleRoutes = require('./routes/articleRoutes');
 const magazineRoutes = require('./routes/magazineRoutes');
+const magazineEditorRoutes = require('./routes/magazineEditorRoutes');
 const activityRoutes = require('./routes/activityRoutes');
 const userRoutes = require('./routes/userRoutes');
 
@@ -46,6 +49,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/auth', authRoutes);
 app.use('/api/articles', articleRoutes);
 app.use('/api/magazine', magazineRoutes);
+app.use('/api/editor', magazineEditorRoutes);
 app.use('/api/activity', activityRoutes);
 app.use('/api/users', userRoutes);
 
@@ -74,7 +78,7 @@ const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGODB_URI;
 
 mongoose
-  .connect(MONGO_URI, { family: 4 })
+  .connect(MONGO_URI)
   .then(() => {
     console.log('✅ MongoDB connected');
     app.listen(PORT, () => {

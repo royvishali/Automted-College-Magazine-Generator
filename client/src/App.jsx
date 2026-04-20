@@ -11,7 +11,7 @@ import Dashboard from './pages/Dashboard';
 import ArticleSubmit from './pages/ArticleSubmit';
 import MyArticles from './pages/MyArticles';
 import ArticleReview from './pages/ArticleReview';
-import MagazineBuilder from './pages/MagazineBuilder';
+import MagazineEditor from './pages/MagazineEditor';
 import ActivityLog from './pages/ActivityLog';
 import AboutTeam from './pages/AboutTeam';
 import UserManagement from './pages/UserManagement';
@@ -21,7 +21,7 @@ const PAGE_TITLES = {
   '/submit': 'Submit Article',
   '/my-articles': 'My Articles',
   '/review': 'Article Review',
-  '/magazine': 'Magazine Builder',
+  '/magazine': 'Magazine Editor',
   '/activity': 'Activity Log',
   '/about': 'About the Development Team',
   '/users': 'User Management',
@@ -94,7 +94,7 @@ function App() {
       {/* Lab Assistant only */}
       <Route path="/magazine" element={
         <ProtectedRoute roles={['lab_assistant']}>
-          <AppLayout path="/magazine"><MagazineBuilder /></AppLayout>
+          <AppLayout path="/magazine"><MagazineEditor /></AppLayout>
         </ProtectedRoute>
       } />
       <Route path="/users" element={
